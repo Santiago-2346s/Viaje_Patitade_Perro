@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travelium - Agencia de Viajes</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      position: relative;
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      z-index: 0;
+      min-height: 100vh;
+      color: #1d1d1d;
+      scroll-behavior: smooth;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    header {
+      background: linear-gradient(to right, #0000006a, #0000006a);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 10;
+    }
+
+    .menu {
+      display: flex;
+      gap: 15px;
+      position: relative;
+      z-index: 10;
+    }
+
+    nav a, .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown .submenu {
+      display: none;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      min-width: 180px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 100;
+      flex-direction: column;
+    }
+
+    .dropdown .submenu a {
+      padding: 8px;
+      color: #000;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown .submenu a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      z-index: 10;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: rgb(0, 0, 0);
+      border-radius: 2px;
+    }
+
+    .footer-logo {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .footer-logo img {
+      width: 350px;
+      height: auto;
+      border-radius: 60px;
+    }
+
+    .footer-logo div {
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 5;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 5px black;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .search-bar select {
+      padding: 12px;
+      width: 320px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      max-width: 80%;
+      cursor: pointer;
+    }
+
+    .search-bar button {
+      background-color: #a9f134;
+      color: #000;
+      border: none;
+      padding: 13px 20px;
+      font-weight: bold;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    .promo {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: #000;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .promo button {
+      background-color: #a9f134;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 20px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .travelium-container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+    }
+
+    .travelium-container h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .feature {
+      flex: 1;
+      padding: 50px;
+      min-width: 250px;
+    }
+
+    .feature img {
+      width: 200px;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      margin: 30px auto;
+      font-size: 14px;
+      max-width: 700px;
+      color: #444;
+    }
+
+    #contacto {
+      max-width: 600px;
+      background: rgba(255,255,255,0.95);
+      margin: 50px auto;
+      padding: 20px 30px;
+      border-radius: 12px;
+      color: #222;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #contacto h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #contacto p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #contacto a {
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: #000000;
+        position: absolute;
+        top: 70px; left: 0;
+        width: 100%;
+        z-index: 15;
+      }
+      nav.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .features {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="menu">
+    <div class="dropdown" id="dropdown-quienes">
+      <a href="javascript:void(0);" class="main-link" onclick="toggleSubmenu()">Quiénes somos ▼</a>
+      <div class="submenu" id="submenu-quienes">
+        <a href="#quienes">Quiénes somos</a>
+        <a href="#privacidad">Política de privacidad</a>
+        <a href="#mapa">Mapa del sitio</a>
+      </div>
+    </div>
+    <a href="Agencia.html">Agencia▼</a>
+    <a href="Destinos.html">Destinos▼</a>
+    <a href="Ofertas.html">Ofertas▼</a>
+    <a href="Experiencia.html">Experiencias▼</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<div class="footer-logo">
+  <img src="imagenes/WhatsApp Image 2025-05-29 at 11.29.54 AM.jpeg" alt="Logo Patita de Perro">
+  <div>Patita de Perro</div>
+</div>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Patita de Perro, La mejor agencia de viajes</h1>
+    <div class="search-bar">
+      <select>
+        <option selected>Elige un destino</option>
+        <option>Europa</option>
+        <option>Asia</option>
+        <option>América</option>
+        <option>Oceanía</option>
+      </select>
+      <button>Buscar</button>
+    </div>
+  </div>
+  <div class="promo">
+    <h3>Vuelos nacionales e internacionales</h3>
+    <button>Reserva ya</button>
+  </div>
+</div>
+
+<div class="travelium-container">
+  <h2 id="quienes">¿Por qué elegir Travelium?</h2>
+  <p class="subtitle">Las mejores razones para confiar en nosotros</p>
+  <div class="features">
+    <div class="feature">
+      <img src="imagenes/WhatsApp Image 2025-05-28 at 9.02.28 PM.jpeg" alt="Viajes">
+      <p>Expertos en destinos únicos y personalizados para cada cliente.</p>
+    </div>
+    <div class="feature">
+      <img src="imagenes/WhatsApp Image 2025-05-28 at 9.02.40 PM.jpeg" alt="Vuelos">
+      <p>Ofrecemos las mejores tarifas y promociones en vuelos nacionales e internacionales.</p>
+    </div>
+    <div class="feature">
+      <img src="imagenes/WhatsApp Image 2025-05-28 at 9.02.49 PM.jpeg" alt="Atención">
+      <p>Atención personalizada 24/7 durante todo tu viaje.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN CONTACTO -->
+<div id="contacto">
+  <h2>Contacto</h2>
+  <p>¡Conéctate con nosotros a través de nuestras redes o visítanos!</p>
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+    <a href="https://www.facebook.com" target="_blank" style="color: #3b5998;">📘 Facebook</a>
+    <a href="https://www.instagram.com" target="_blank" style="color: #C13584;">📸 Instagram</a>
+    <a href="https://wa.me/5211234567890" target="_blank" style="color: #25d366;">💬 WhatsApp</a>
+    <a href="tel:+5211234567890" style="color: #000;">📞 Teléfono: +52 1 123 456 7890</a>
+    <a href="https://www.google.com/maps?q=CDMX" target="_blank" style="color: #0a66c2;">📍 Ver Mapa</a>
+  </div>
+</div>
+
+<div class="footer-logo">
+  <img src="imagenes/WhatsApp Image 2025-05-29 at 11.29.54 AM.jpeg" alt="Logo Patita de Perro">
+  <div>Patita de Perro</div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+  function toggleSubmenu() {
+    const submenu = document.getElementById("submenu-quienes");
+    submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
+  }
+
+  document.addEventListener("click", function(event) {
+    const dropdown = document.getElementById("dropdown-quienes");
+    const submenu = document.getElementById("submenu-quienes");
+    if (!dropdown.contains(event.target)) {
+      submenu.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Travelium</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+    header {
+      background: linear-gradient(to bottom, #00bfff, #00bfff);
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .menu {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      align-items: center;
+    }
+    header .menu a {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+    }
+    header .menu a:hover {
+      text-decoration: underline;
+    }
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .destinos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 20px;
+    }
+    .destino {
+      text-align: center;
+    }
+    .destino img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .destino span {
+      display: block;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+    .mensaje {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    .boton {
+      display: block;
+      margin: 10px auto;
+      background: limegreen;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    #modalContacto {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    #modalContenido {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    #modalContenido h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #modalContenido p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    #modalContenido a {
+      color: blue;
+      text-decoration: none;
+    }
+
+    #modalContenido a:hover {
+      text-decoration: underline;
+    }
+
+    .cerrar {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgb(0, 153, 255);
+      padding: 10px 15px;
+      border-radius: 25px;
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .whatsapp img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .submenu-container {
+      position: relative;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      background-color: #00bfff;
+      top: 100%;
+      left: 0;
+      z-index: 10;
+      padding: 10px 0;
+      border-radius: 0 0 8px 8px;
+      min-width: 160px;
+    }
+
+    .submenu a {
+      display: block;
+      padding: 8px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .submenu a:hover {
+      background-color: #009ad6;
+    }
+
+    .submenu-container:hover .submenu {
+      display: block;
+    }
+
+    .info-section {
+      display: none;
+      background-color: rgba(255,255,255,0.9);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 10px;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Patita de Perro</div>
+    <div class="menu">
+      <a href="Agencia.html">Agencia ▼</a>
+      <a href="Destinos.html">DESTINOS ▼</a>
+      <a href="Ofertas.html">OFERTAS ▼</a>
+      <a href="Experiencia.html">EXPERIENCIAS ▼</a>
+
+      <div class="submenu-container">
+        <a href="#" id="quienesSomosBtn">QUIÉNES SOMOS ▼</a>
+        <div class="submenu">
+          <a href="#" onclick="mostrarInfo('quienes'); return false;">Quiénes somos</a>
+          <a href="#" onclick="mostrarInfo('privacidad'); return false;">Política de privacidad</a>
+          <a href="#" onclick="mostrarInfo('mapa'); return false;">Mapa del sitio</a>
+        </div>
+      </div>
+
+      <a href="#" onclick="abrirModal()">CONTACTO ▼</a>
+    </div>
+  </header>
+
+  <div class="destinos-grid">
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Europa" alt="Europa"><span>Europa</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Medio+Oriente" alt="Medio Oriente"><span>Medio Oriente</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Sudamérica" alt="Sudamérica"><span>Sudamérica</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Estados+Unidos" alt="Estados Unidos"><span>Estados Unidos</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Canadá" alt="Canadá"><span>Canadá</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Asia" alt="Asia"><span>Asia</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=México" alt="México"><span>México</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Centroamérica" alt="Centroamérica"><span>Centroamérica</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Pacífico" alt="Pacífico"><span>Pacífico</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=África" alt="África"><span>África</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Caribe" alt="Caribe"><span>Caribe</span></div>
+    <div class="destino"><img src="https://via.placeholder.com/200x150?text=Cruceros" alt="Cruceros"><span>Cruceros</span></div>
+  </div>
+
+  <div class="mensaje">¡Viajar es para todos!</div>
+  <a class="boton" href="#">DA CLIC AQUÍ</a>
+
+  <a class="whatsapp" href="https://wa.me/1234567890" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    🐶¿Cómo podemos ayudarte?🐶
+  </a>
+
+  <div id="modalContacto">
+    <div id="modalContenido">
+      <button class="cerrar" onclick="cerrarModal()">✖</button>
+      <h2>Contáctanos</h2>
+      <p><strong>Facebook:</strong> <a href="https://facebook.com/patitadeperro" target="_blank">facebook.com/patitadeperro</a></p>
+      <p><strong>Instagram:</strong> <a href="https://instagram.com/patitadeperro" target="_blank">@patitadeperro</a></p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/521234567890" target="_blank">+52 123 456 7890</a></p>
+      <p><strong>Teléfono:</strong> +52 55 1234 5678</p>
+      <p><strong>Horario:</strong> Lunes a Viernes, 9:00 AM - 6:00 PM</p>
+      <div style="margin-top: 15px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.5964957114885!2d-99.18594448472699!3d19.39639898690232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d202be0f3d9e87%3A0x1a0dd2d6dc03e774!2sCiudad%20de%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1700000000000"
+          width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="info-quienes" class="info-section">
+    <h2>Quiénes somos</h2>
+    <p>Somos Travelium, una agencia apasionada por los viajes y aventuras inolvidables. Nuestro objetivo es ayudarte a explorar el mundo con confianza y comodidad.</p>
+  </div>
+
+  <div id="info-privacidad" class="info-section">
+    <h2>Política de privacidad</h2>
+    <p>Tu privacidad es importante para nosotros. No compartimos tu información personal y la usamos únicamente para ofrecerte un mejor servicio.</p>
+  </div>
+
+  <div id="info-mapa" class="info-section">
+    <h2>Mapa del sitio</h2>
+    <p>Aquí puedes ver todas las secciones disponibles de nuestro sitio para que navegues fácilmente por nuestras ofertas, destinos y servicios.</p>
+  </div>
+
+  <script>
+    function abrirModal() {
+      document.getElementById("modalContacto").style.display = "flex";
+    }
+
+    function cerrarModal() {
+      document.getElementById("modalContacto").style.display = "none";
+    }
+
+    function mostrarInfo(seccion) {
+      document.querySelectorAll('.info-section').forEach(div => {
+        div.style.display = 'none';
+      });
+
+      const id = 'info-' + seccion;
+      const section = document.getElementById(id);
+      if (section) {
+        section.style.display = 'block';
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+
+</body>
+</html>
